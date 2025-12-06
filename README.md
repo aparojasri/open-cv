@@ -1,113 +1,34 @@
 # Companion Vision OS (CV-OS) — Social Perception Engine
 
-### Real-time Face Mesh • Head Pose • Drowsiness (EAR) • Hand Gesture Recognition • Kalman Tracking • Profiling HUD
+![Status](https://img.shields.io/badge/Status-Prototype-orange) ![Python](https://img.shields.io/badge/Python-3.10-blue) ![OpenCV](https://img.shields.io/badge/OpenCV-4.x-green)
 
-This project is a computer-vision perception engine built for real-time human-robot interaction.
+**Companion Vision OS** is a modular perception framework designed for social robotics. It aims to bridge the gap between raw visual data and high-level social cues (like "boredom" or "attention") using lightweight computer vision techniques.
 
-It performs live facial analysis, attention estimation, gesture recognition, and state profiling using **OpenCV**, **MediaPipe**, and **Streamlit WebRTC**. It serves as a debugger and prototype platform for social robots (e.g., Miko), ADAS-inspired perception systems, and interaction research.
-
----
-
-## 🚀 Live Demo Features
-
-### ✔ Real-time Detection
-* **Face Mesh (468-point):** High-fidelity facial landmarking.
-* **Head Pose Estimation:** Real-time Pitch, Yaw, and Roll calculation.
-* **Drowsiness Detection:** Eye Aspect Ratio (EAR) monitoring.
-* **Hand Analysis:** Landmarks + Gesture Classification (static & motion).
-* **Tracking:** Face Center Tracking with **Kalman Smoothing**.
-* **Performance:** Per-frame Profiling (FPS, Latency, P99, Jitter).
-
-### ✔ Debugger HUD
-* **State Indicators:** "Focused", "Distracted", "Drowsy", etc.
-* **Telemetry HUD:** Live FPS, Latency, and Jitter metrics.
-* **Visual Overlays:** Gesture labels, face center markers, and smoothed trajectory paths.
+> **Note:** This project is currently in the **Active Prototyping Phase**. The core architecture is established, and modules are being iteratively optimized for latency and edge-deployment.
 
 ---
 
-## 📁 Project Structure
+## 🧠 The Vision
+Social robots (like Miko) require more than just object detection; they need **Social Perception**. This engine is designed to answer:
+* *"Is the user looking at me?"* (Head Pose/Gaze)
+* *"Is the user engaged or sleepy?"* (EAR/Drowsiness)
+* *"Is the user gesturing to me?"* (Hand Tracking)
 
-```bash
-.
-│── app.py                     # Streamlit WebRTC Debug App
-│── requirements.txt           # Light dependency set
-│── README.md                  # This file
-│
-├── src/
-│   ├── perception.py          # Face, hand, pose, EAR processing pipeline
-│   ├── gestures.py            # Gesture Engine (static & motion)
-│   ├── geometry.py            # Head pose estimation & math utilities
-│   ├── tracking.py            # Kalman tracker + State smoothing
-│   ├── profiling.py           # Real-time FPS/Latency profiler
-│   ├── analytics.py           # Async CSV/JSONL logger
-│   └── ui_controls.py         # Streamlit sidebar controls
-│
-├── models/                    # Place ONNX / trained models here
-├── logs/                      # Runtime logs (auto-generated)
-└── demo/
-    ├── screenshot.png         # Add your UI screenshot
-    └── demo.mp4               # Add a short demo video
-🛠 Setup & Installation
-1. Create a virtual environment
-Bash
+---
 
-python -m venv .venv
-Windows: .venv\Scripts\activate
+## 🏗 Architecture & Modules
 
-macOS/Linux: source .venv/bin/activate
+The system is designed with a modular pipeline approach to ensure independent testing of vision tasks.
 
-2. Install dependencies
-Bash
+### 1. Facial Analysis Module (Core)
+* **Face Mesh:** Utilizes 468-point landmarks for high-fidelity surface geometry.
+* **Head Pose Estimation:** Solves PnP (Perspective-n-Point) problems to determine Pitch, Yaw, and Roll.
+* **Attention Metric:** correlates face orientation with camera vectors to estimate "Focus."
 
-pip install -r requirements.txt
-3. Run the app
-Bash
+### 2. State & Profiling (In Progress)
+* **Kalman Filtering:** Implementing linear quadratic estimation to smooth jittery landmark detection in low-light conditions.
+* **Telemetry HUD:** A planned overlay system to visualize FPS, inference latency (ms), and P99 metrics for performance debugging.
 
-streamlit run app.py
-Then open the browser window that appears (usually http://localhost:8501).
-
-🎥 How to Use
-Click Select Device → choose your webcam.
-
-Click Start.
-
-Observe the overlays:
-
-Face mesh + head pose angles.
-
-Eye aspect ratio (EAR) values.
-
-Gesture labels.
-
-Smoothed tracking point.
-
-View real-time FPS, P99, jitter in the sidebar.
-
-Events get logged automatically in the logs/ folder.
-
-🤖 Tech Stack
-Language: Python 3.10+
-
-Core Vision: OpenCV (Geometry, Image Processing), MediaPipe (Landmarks)
-
-Frontend: Streamlit + WebRTC (Low-latency streaming)
-
-Algorithms: Kalman Filter (Trajectory Smoothing)
-
-System: Async Logger (Telemetry), Custom Profiler (Performance Metrics)
-
-📌 Future Extensions (Planned)
-The architecture is designed to support:
-
-[ ] Emotion classifier (custom CNN/ViT)
-
-[ ] Object detection (YOLOv8 / SSD)
-
-[ ] Face ID embeddings (MobileFaceNet)
-
-[ ] TensorRT optimization for Jetson deployment
-
-[ ] Multi-person tracking with DeepSORT
-
-📜 License
-MIT License
+### 3. Gesture Recognition
+* **Pipeline:** Hand landmark extraction → Vector normalization → Heuristic classification.
+* **Goals:** Real-time recognition of "Stop," "Wave," and "Pointer" gestures for robot control.
