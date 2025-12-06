@@ -1,0 +1,11 @@
+{
+    "session_summary": {
+        "duration_seconds": 11.51,
+        "total_frames_processed": 0,
+        "performance": {
+            "drowsiness_percentage": 0.0,
+            "distraction_percentage": 0.0
+        },
+        "interaction_log": {}
+    }
+}

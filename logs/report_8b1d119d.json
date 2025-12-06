@@ -1,0 +1,21 @@
+{
+    "session_summary": {
+        "duration_seconds": 54.34,
+        "total_frames_processed": 541,
+        "performance": {
+            "drowsiness_percentage": 15.53,
+            "distraction_percentage": 0.0
+        },
+        "interaction_log": {
+            "OPEN_PALM": 100,
+            "FIST": 41,
+            "VICTORY": 4,
+            "WAVING": 22,
+            "SWIPE_LEFT": 20,
+            "SWIPE_RIGHT": 29,
+            "SWIPE_UP": 4,
+            "SWIPE_DOWN": 1,
+            "THUMBS_UP": 25
+        }
+    }
+}
